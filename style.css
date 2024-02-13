@@ -52,17 +52,20 @@ h3 {
 
 /* Utility Classes for flag blur */
 .blur-1 {
-  filter: blur(2rem);
+  filter: blur(3rem);
 }
 
 .blur-2 {
-  filter: blur(1rem);
+  filter: blur(2rem);
 }
 .blur-3 {
-  filter: blur(0.6rem);
+  filter: blur(1rem);
 }
 .blur-4 {
-  filter: blur(0.4rem);
+  filter: blur(0.8rem);
+}
+.blur-5 {
+  filter: blur(0.6rem);
 }
 
 .clue-container {
