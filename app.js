@@ -6,10 +6,11 @@ const imgEl = document.querySelector(".flag-img");
 const selectEl = document.querySelector("#country-choice");
 const submitGuessButtonEl = document.querySelector("#submitGuess");
 const guessIndicatorEls = document.querySelectorAll(".guess-indicator");
-
+const clueEls = document.querySelectorAll(".clue");
 // Setting initial Variables
 let guesses = 0;
 let blurLevel = 1;
+let countryDataObj = {};
 
 // Adding options to the selector
 for (let i = 0; i < countriesList.length; i++) {
@@ -19,15 +20,19 @@ for (let i = 0; i < countriesList.length; i++) {
   selectEl.appendChild(opt);
 }
 
+// Countries API Stuff
+
 const selectCountry = () => {
   return countriesList[Math.floor(Math.random() * countriesList.length) + 1];
 };
 
 const initialiseGame = () => {
   const newCountry = selectCountry();
-  window.localStorage.setItem("country", newCountry["name"]);
-  window.localStorage.setItem("guesses", guesses);
   const countryCode = newCountry["alpha-2"].toLowerCase();
+  window.localStorage.setItem("country", newCountry["name"]);
+  window.localStorage.setItem("countryCode", countryCode);
+  window.localStorage.setItem("guesses", guesses);
+  window.localStorage.setItem("gameWon", false);
   imgEl.src = `https://flagcdn.com/w320/${countryCode}.png`;
 };
 
@@ -50,6 +55,7 @@ const updateBoardWrong = () => {
   imgEl.classList.remove(`blur-${blurLevel}`);
   blurLevel++;
   imgEl.classList.add(`blur-${blurLevel}`);
+  clueEls[guesses - 1].classList.remove("hidden");
   // Updating guess indicators
   for (let indicator of guessIndicatorEls) {
     if (indicator.id === `gi${guesses}`) {
@@ -58,12 +64,50 @@ const updateBoardWrong = () => {
   }
 };
 
+const updateBoardCorrect = () => {
+  imgEl.classList.remove(`blur-${blurLevel}`);
+  window.localStorage.setItem("gameWon", true);
+  for (let indicator of guessIndicatorEls) {
+    if (indicator.id === `gi${guesses}`) {
+      indicator.style.backgroundColor = "green";
+    }
+  }
+};
+
 initialiseGame();
 
 // Main Submition Logic
 submitGuessButtonEl.addEventListener("click", () => {
-  const guess = makeGuess();
-  if (!isWinner(guess)) {
-    updateBoardWrong();
+  if (window.localStorage.getItem("gameWon") != "true") {
+    const guess = makeGuess();
+    if (!isWinner(guess)) {
+      updateBoardWrong();
+    } else {
+      updateBoardCorrect();
+    }
   }
 });
+
+// API Stuff
+const apiUrl = `https://restcountries.com/v3.1/alpha/${window.localStorage.getItem(
+  "countryCode"
+)}?fields=name,capital,region,borders,landlocked,area,population`;
+
+fetch(apiUrl)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((countryData) => {
+    clueEls[0].innerHTML = `The capital is: ${countryData["capital"][0]}`;
+    clueEls[1].innerHTML = `The region is: ${countryData["region"]}`;
+    clueEls[2].innerHTML = `The population is: ${countryData["population"]}`;
+    clueEls[3].innerHTML = `The country is landlocked: ${countryData["landlocked"]}`;
+    clueEls[4].innerHTML = `The country has: ${countryData["borders"].length} borders`;
+    clueEls[5].innerHTML = `The area is: ${countryData["area"]}`;
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });

@@ -68,6 +68,10 @@ h3 {
   filter: blur(0.6rem);
 }
 
+.hidden {
+  display: none;
+}
+
 .clue-container {
   margin-top: 2rem;
 }
