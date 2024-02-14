@@ -7,6 +7,7 @@ const selectEl = document.querySelector("#country-choice");
 const submitGuessButtonEl = document.querySelector("#submitGuess");
 const guessIndicatorEls = document.querySelectorAll(".guess-indicator");
 const clueEls = document.querySelectorAll(".clue");
+const answerContainerEl = document.querySelector(".answer-container");
 // Setting initial Variables
 let guesses = 0;
 let blurLevel = 1;
@@ -57,21 +58,17 @@ const updateBoardWrong = () => {
   imgEl.classList.add(`blur-${blurLevel}`);
   clueEls[guesses - 1].classList.remove("hidden");
   // Updating guess indicators
-  for (let indicator of guessIndicatorEls) {
-    if (indicator.id === `gi${guesses}`) {
-      indicator.style.backgroundColor = "red";
-    }
-  }
+  guessIndicatorEls[guesses - 1].classList.add("incorrect");
 };
 
 const updateBoardCorrect = () => {
   imgEl.classList.remove(`blur-${blurLevel}`);
   window.localStorage.setItem("gameWon", true);
-  for (let indicator of guessIndicatorEls) {
-    if (indicator.id === `gi${guesses}`) {
-      indicator.style.backgroundColor = "green";
-    }
-  }
+  guessIndicatorEls[guesses - 1].classList.add("correct");
+  let winningCountry = document.createElement("p");
+  const winningCountryName = window.localStorage.getItem("country");
+  winningCountry.textContent = `Congratulations, you got ${winningCountryName} in ${guesses}!`;
+  answerContainerEl.appendChild(winningCountry);
 };
 
 initialiseGame();

@@ -7,7 +7,7 @@
 }
 
 html {
-  background-color: antiquewhite;
+  background-color: #fefae0;
 }
 
 body {
@@ -40,38 +40,71 @@ h3 {
 }
 
 .guess-indicator {
-  background-color: grey;
+  background-color: #d4a373;
   border-radius: 50%;
   height: 30px;
   width: 30px;
 }
 
 .form-container {
+  margin-top: 4rem;
+}
+
+#country-choice {
+  background-color: #faedcd;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 1rem;
+  padding: 0.6rem;
+  text-align: center;
+}
+
+.btn {
+  background-color: #faedcd;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 1rem;
+  padding: 0.6rem;
+}
+
+.reset {
+  color: #000;
+  background-color: #ccd5ae;
+  text-decoration: none;
+}
+
+.clue-container {
   margin-top: 2rem;
 }
 
 /* Utility Classes for flag blur */
 .blur-1 {
-  filter: blur(3rem);
+  filter: blur(4rem);
 }
 
 .blur-2 {
-  filter: blur(2rem);
+  filter: blur(3rem);
 }
 .blur-3 {
-  filter: blur(1rem);
+  filter: blur(2rem);
 }
 .blur-4 {
-  filter: blur(0.8rem);
+  filter: blur(1rem);
 }
 .blur-5 {
-  filter: blur(0.6rem);
+  filter: blur(0.8rem);
 }
 
 .hidden {
   display: none;
 }
 
-.clue-container {
-  margin-top: 2rem;
+.incorrect {
+  background-color: #780000;
+}
+
+.correct {
+  background-color: #8ac926;
 }
