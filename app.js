@@ -11,6 +11,7 @@ const clueEls = document.querySelectorAll(".clue");
 const answerContainerEl = document.querySelector(".answer-container");
 const highScoreSpanEl = document.querySelector("#hiScoreSpan");
 const scoreSpanEl = document.querySelector("#scoreSpan");
+const resetButtonEl = document.querySelector("#reset");
 // Setting initial Variables
 let guesses = 0;
 let blurLevel = 1;
@@ -172,6 +173,8 @@ submitGuessButtonEl.addEventListener("click", () => {
 nextFlagButtonEl.addEventListener("click", () => {
   newRound();
 });
+
+resetButtonEl.addEventListener("click", initialiseGame());
 
 const switchButton = () => {
   nextFlagButtonEl.classList.toggle("hidden");
