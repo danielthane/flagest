@@ -38,12 +38,22 @@ const getCountryInfo = () => {
       return response.json();
     })
     .then((countryData) => {
-      clueEls[0].innerHTML = `The capital is: ${countryData["capital"][0]}`;
-      clueEls[1].innerHTML = `The region is: ${countryData["region"]}`;
-      clueEls[2].innerHTML = `The population is: ${countryData["population"]}`;
-      clueEls[3].innerHTML = `The country is landlocked: ${countryData["landlocked"]}`;
-      clueEls[4].innerHTML = `The country has: ${countryData["borders"].length} borders`;
-      clueEls[5].innerHTML = `The area is: ${countryData["area"]}`;
+      clueEls[0].innerHTML = `The population is: ${countryData["population"]}`;
+      clueEls[1].innerHTML = `The capital is: ${countryData["capital"][0]}`;
+      clueEls[2].innerHTML = `The region is: ${countryData["region"]}`;
+      if (countryData["borders"].length === 0) {
+        clueEls[3].innerHTML = "The country is an island";
+      } else {
+        const countryCode = countryData["borders"][0];
+
+        const countryName = countriesList.find(
+          (country) => country["alpha-3"] == countryCode
+        );
+
+        clueEls[3].innerHTML = `The country shares a border with: ${countryName.name}`;
+      }
+
+      clueEls[4].innerHTML = `The area is: ${countryData["area"]}`;
     })
     .catch((error) => {
       console.error("Error:", error);
