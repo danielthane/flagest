@@ -9,15 +9,19 @@
   <body>
     <div class="container">
       <h1>Welcome to Flagest</h1>
-      <h3>The <em>Daily</em> flag guessing game.</h3>
+      <h3>The country guessing game.</h3>
       <div class="scores-container">
         <p>Your hiscore is <span id="hiScoreSpan">0</span></p>
+      </div>
+      <div class="scores-container">
+        <p>Your score is <span id="scoreSpan">0</span></p>
       </div>
       <img src="" srcset="" width="320" class="flag-img blur-1" />
 
       <div class="form-container">
         <select name="country-choice" id="country-choice" value=""></select>
         <button id="submitGuess" class="btn">Submit</button>
+        <button id="nextFlag" class="btn hidden">New flag</button>
         <a href="/" class="btn reset">Reset Game</a>
       </div>
       <div class="guess-indicator-container">

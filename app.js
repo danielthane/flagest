@@ -5,13 +5,17 @@ import countriesList from "./counties.json" assert { type: "json" };
 const imgEl = document.querySelector(".flag-img");
 const selectEl = document.querySelector("#country-choice");
 const submitGuessButtonEl = document.querySelector("#submitGuess");
+const nextFlagButtonEl = document.querySelector("#nextFlag");
 const guessIndicatorEls = document.querySelectorAll(".guess-indicator");
 const clueEls = document.querySelectorAll(".clue");
 const answerContainerEl = document.querySelector(".answer-container");
+const highScoreSpanEl = document.querySelector("#hiScoreSpan");
+const scoreSpanEl = document.querySelector("#scoreSpan");
 // Setting initial Variables
 let guesses = 0;
 let blurLevel = 1;
 let score = 0;
+
 // Adding options to the selector
 for (let i = 0; i < countriesList.length; i++) {
   let opt = document.createElement("option");
@@ -55,6 +59,8 @@ const selectCountry = () => {
 const newRound = () => {
   guesses = 0;
   blurLevel = 1;
+  highScoreSpanEl.textContent = window.localStorage.getItem("hiScore");
+  scoreSpanEl.textContent = window.localStorage.getItem("score");
   imgEl.classList.add("blur-1");
   const newCountry = selectCountry();
   const countryCode = newCountry["alpha-2"].toLowerCase();
@@ -77,14 +83,17 @@ const newRound = () => {
       el.classList.remove("incorrect");
     }
   }
+  if (score > 0) {
+    switchButton();
+  }
 };
 
 const initialiseGame = () => {
-  newRound();
   if (!window.localStorage.getItem("hiScore")) {
     window.localStorage.setItem("hiScore", 0);
   }
   window.localStorage.setItem("score", 0);
+  newRound();
 };
 
 const makeGuess = () => {
@@ -132,6 +141,7 @@ const updateBoardCorrect = () => {
   if (score > window.localStorage.getItem("hiScore")) {
     window.localStorage.setItem("hiScore", score);
   }
+  switchButton();
 };
 
 initialiseGame();
@@ -144,7 +154,16 @@ submitGuessButtonEl.addEventListener("click", () => {
       updateBoardWrong();
     } else {
       updateBoardCorrect();
-      newRound();
+      // newRound();
     }
   }
 });
+
+nextFlagButtonEl.addEventListener("click", () => {
+  newRound();
+});
+
+const switchButton = () => {
+  nextFlagButtonEl.classList.toggle("hidden");
+  submitGuessButtonEl.classList.toggle("hidden");
+};
