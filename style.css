@@ -65,15 +65,21 @@ h3 {
   background-color: #faedcd;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
   font-family: "Roboto Mono", monospace;
   font-size: 1rem;
   padding: 0.6rem;
+  transition: 0.3s;
 }
 
 .reset {
   color: #000;
   background-color: #ccd5ae;
   text-decoration: none;
+}
+
+.btn:hover {
+  box-shadow: 4px 5px 10px #000;
 }
 
 .clue-container {
