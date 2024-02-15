@@ -126,7 +126,10 @@ const updateBoardWrong = () => {
   imgEl.classList.remove(`blur-${blurLevel}`);
   blurLevel++;
   imgEl.classList.add(`blur-${blurLevel}`);
-  clueEls[guesses - 1].classList.remove("hidden");
+  if (guesses < 6) {
+    clueEls[guesses - 1].classList.remove("hidden");
+  }
+  console.log("In Update Wrong");
   // Updating guess indicators
   guessIndicatorEls[guesses - 1].classList.add("incorrect");
   if (guesses === 6) {
@@ -174,7 +177,7 @@ nextFlagButtonEl.addEventListener("click", () => {
   newRound();
 });
 
-resetButtonEl.addEventListener("click", initialiseGame());
+resetButtonEl.addEventListener("click", initialiseGame);
 
 const switchButton = () => {
   nextFlagButtonEl.classList.toggle("hidden");
