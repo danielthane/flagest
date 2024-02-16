@@ -41,7 +41,7 @@ const getCountryInfo = () => {
     .then((countryData) => {
       clueEls[0].innerHTML = `The population is: ${countryData["population"]}`;
       clueEls[1].innerHTML = `The capital is: ${countryData["capital"][0]}`;
-      clueEls[2].innerHTML = `The region is: ${countryData["region"]} km<sup>2</sup>`;
+      clueEls[2].innerHTML = `The region is: ${countryData["region"]}`;
       if (countryData["borders"].length === 0) {
         clueEls[3].innerHTML = "The country is an island";
       } else {
@@ -54,7 +54,7 @@ const getCountryInfo = () => {
         clueEls[3].innerHTML = `The country shares a border with: ${countryName.name}`;
       }
 
-      clueEls[4].innerHTML = `The area is: ${countryData["area"]}`;
+      clueEls[4].innerHTML = `The area is: ${countryData["area"]} km<sup>2</sup>`;
     })
     .catch((error) => {
       console.error("Error:", error);
