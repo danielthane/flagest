@@ -152,4 +152,21 @@ h3 {
   .form-container {
     max-width: 80%;
   }
+
+  .blur-1 {
+    filter: blur(2rem);
+  }
+
+  .blur-2 {
+    filter: blur(1.2rem);
+  }
+  .blur-3 {
+    filter: blur(1rem);
+  }
+  .blur-4 {
+    filter: blur(0.6rem);
+  }
+  .blur-5 {
+    filter: blur(0.4rem);
+  }
 }
