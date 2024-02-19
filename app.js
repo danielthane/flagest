@@ -1,6 +1,8 @@
 // Importing JSOPN Countries Data
 // import countriesList from "./public/counties.json" assert { type: "json" };
 
+alert("hello");
+
 const countriesList = [
   {
     name: "Afghanistan",
