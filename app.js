@@ -1,5 +1,5 @@
 // Importing JSOPN Countries Data
-import countriesList from "./counties.json" assert { type: "json" };
+import countriesList from "./public/counties.json" assert { type: "json" };
 
 // Getting Elements from Page
 const imgEl = document.querySelector(".flag-img");
@@ -39,7 +39,11 @@ const getCountryInfo = () => {
       return response.json();
     })
     .then((countryData) => {
-      clueEls[0].innerHTML = `The population is: ${countryData["population"]}`;
+      const population = countryData["population"];
+      clueEls[0].innerHTML = `The population is: ${numberWithCommas(
+        population
+      )}`;
+
       clueEls[1].innerHTML = `The capital is: ${countryData["capital"][0]}`;
       clueEls[2].innerHTML = `The region is: ${countryData["region"]}`;
       if (countryData["borders"].length === 0) {
@@ -61,7 +65,9 @@ const getCountryInfo = () => {
     });
 };
 
-console.log(clueEls);
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 const selectCountry = () => {
   return countriesList[Math.floor(Math.random() * countriesList.length) + 1];
@@ -70,6 +76,7 @@ const selectCountry = () => {
 const newRound = () => {
   guesses = 0;
   blurLevel = 1;
+  selectEl.value = "default";
   highScoreSpanEl.textContent = window.localStorage.getItem("hiScore");
   scoreSpanEl.textContent = window.localStorage.getItem("score");
   imgEl.classList.add("blur-1");
@@ -129,7 +136,6 @@ const updateBoardWrong = () => {
   if (guesses < 6) {
     clueEls[guesses - 1].classList.remove("hidden");
   }
-  console.log("In Update Wrong");
   // Updating guess indicators
   guessIndicatorEls[guesses - 1].classList.add("incorrect");
   if (guesses === 6) {
@@ -162,7 +168,10 @@ initialiseGame();
 
 // Main Submition Logic
 submitGuessButtonEl.addEventListener("click", () => {
-  if (window.localStorage.getItem("gameWon") != "true") {
+  if (
+    window.localStorage.getItem("gameWon") != "true" &&
+    selectEl.value != "default"
+  ) {
     const guess = makeGuess();
     if (!isWinner(guess)) {
       updateBoardWrong();

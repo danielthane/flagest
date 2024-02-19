@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="public/style.css" />
     <title>Flagle</title>
   </head>
   <body>
@@ -19,7 +19,9 @@
       <img src="" srcset="" width="320" class="flag-img blur-1" />
 
       <div class="form-container">
-        <select name="country-choice" id="country-choice" value=""></select>
+        <select name="country-choice" id="country-choice" value="">
+          <option value="default" selected>Select a Country</option>
+        </select>
         <button id="submitGuess" class="btn">Submit</button>
         <button id="nextFlag" class="btn hidden">New flag</button>
         <btn id="reset" class="btn reset">Reset Game</btn>
