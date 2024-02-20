@@ -154,14 +154,14 @@ h3 {
   }
 
   .blur-1 {
-    filter: blur(2rem);
+    filter: blur(1rem);
   }
 
   .blur-2 {
-    filter: blur(1.2rem);
+    filter: blur(0.8rem);
   }
   .blur-3 {
-    filter: blur(1rem);
+    filter: blur(0.7rem);
   }
   .blur-4 {
     filter: blur(0.6rem);
